@@ -3,20 +3,17 @@ package info.zoio.tec.java.springinaction.springidol;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
- * 构造器注入
+ * Setter注入
+ * 同时展示了面向接口编程的优点：演奏不同的乐器...
  *
  * @author humyna
  *
  */
-public class JugglerMain {
+public class InstrumentMain {
 
 	public static void main(String[] args) throws PerformanceException {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-idol.xml");
-//		ApplicationContext ctx = new ClassPathXmlApplicationContext("springidol-context-2.xml");//構造器注入
-//		Performer performer = (Performer)ctx.getBean("duke");
-		//构造注入对象引用
-		Performer performer = (Performer)ctx.getBean("poeicDuke");
+		Performer performer = (Performer)ctx.getBean("kenny");
 		performer.perform();
 	}
-
 }

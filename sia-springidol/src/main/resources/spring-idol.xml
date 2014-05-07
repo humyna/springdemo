@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:util="http://www.springframework.org/schema/util"
- xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+		default-init-method="turnOnLights"
+		default-destroy-method="turnOffLights">
 
-  <!--<start id="duke_bean" />-->
-  <bean id="duke"
-      class="info.zoio.tec.java.springinaction.springidol.Juggler" />
-  <!--<end id="duke_bean" />-->
+	<!--<start id="duke_bean" /> -->
+	<bean id="duke" class="info.zoio.tec.java.springinaction.springidol.Juggler" />
+	<!--<end id="duke_bean" /> -->
+
+	<!--<start id="poeic_duke_bean" /> 通过构造方法注入引用对象 -->
+	<bean id="poeicDuke"
+		class="info.zoio.tec.java.springinaction.springidol.PoeticJuggler">
+		<constructor-arg value="15" />
+		<constructor-arg ref="sonnet29" />
+	</bean>
+	<!--<end id="poeic_duke_bean" /> -->
+
+	<!--<start id="sonnet29_bean" /> -->
+	<bean id="sonnet29" class="info.zoio.tec.java.springinaction.springidol.Sonnet29" />
+	<!--<end id="sonnet29_bean" /> -->
+
+	<!--<start id="stage_bean" />通过工厂方法创建Bean -->
+	<bean id="stage" class="info.zoio.tec.java.springinaction.springidol.Stage" factory-method="getInstance" />
+	<!--<end id="stage_bean" /> -->
+
+	<!--<start id="ticket_bean" />Spring Bean默认都是单例   可以 为Bean声明一个作用域 ，在每次请求时都产生一个实例-->
+	<bean id="ticket" class="info.zoio.tec.java.springinaction.springidol.Ticket" scope="prototype"/>
+	<!--<end id="ticket_bean" /> -->
+
+	<!--<start id="auditorium_bean" /> 初始化和销毁Bean-->
+	<!-- 初始化和销毁Bean的另一种方法是让Bean实现InitializingBean和DisposableBean -->
+	<!-- 还可以使用Beans元素的default-init-method和default-destroy-method属性为应用上下文的所有bean设置共同的初始化和销毁方法 -->
+	<!-- <bean id="auditorium"
+		class="info.zoio.tec.java.springinaction.springidol.Auditorium"
+		init-method="turnOnLights"
+		destroy-method="turnOffLights"/> -->
+	<!--<end id="auditorium_bean" /> -->
 
 
+	<!--<start id="kenny_bean" 通过setter方法注入/> -->
+	<bean id="kenny" class="info.zoio.tec.java.springinaction.springidol.Instrumentalist" >
+		<property name="song" value="两只老鼠" />
+		<!-- <property name="instrument" ref="saxophone" /> -->
+		<property name="instrument" ref="piano" />
+	</bean>
+	<!--<end id="kenny_bean" /> -->
+
+	<!--<start id="saxophone_bean" /> -->
+	<bean id="saxophone" class="info.zoio.tec.java.springinaction.springidol.Saxophone" />
+	<!--<end id="saxophone_bean" /> -->
+	<!--<start id="piano_bean" /> -->
+	<bean id="piano" class="info.zoio.tec.java.springinaction.springidol.Piano" />
+	<!--<end id="piano_bean" /> -->
 </beans>
