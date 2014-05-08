@@ -15,7 +15,10 @@ public class JugglerMain {
 //		ApplicationContext ctx = new ClassPathXmlApplicationContext("springidol-context-2.xml");//構造器注入
 //		Performer performer = (Performer)ctx.getBean("duke");
 		//构造注入对象引用
-		Performer performer = (Performer)ctx.getBean("poeicDuke");
+//		Performer performer = (Performer)ctx.getBean("poeicDuke");
+		//Spring EL
+		Performer performer = (Performer)ctx.getBean("carl");
+
 		performer.perform();
 	}
 

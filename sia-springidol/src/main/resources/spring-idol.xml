@@ -40,7 +40,7 @@
 	<!--<end id="auditorium_bean" /> -->
 
 
-	<!--<start id="kenny_bean" 通过setter方法注入/> -->
+	<!--<start id="kenny_bean"/>  通过setter方法注入-->
 	<bean id="kenny" class="info.zoio.tec.java.springinaction.springidol.Instrumentalist" >
 		<property name="song" value="两只老鼠" />
 		<!-- <property name="instrument" ref="saxophone" /> -->
@@ -54,4 +54,61 @@
 	<!--<start id="piano_bean" /> -->
 	<bean id="piano" class="info.zoio.tec.java.springinaction.springidol.Piano" />
 	<!--<end id="piano_bean" /> -->
+
+
+	<!--<start id="hank_bean" /> 装配List-->
+	<!-- <bean id="hank" class="info.zoio.tec.java.springinaction.springidol.OneManBand" >
+		<property name="instruments">
+			<lsit>
+				<ref name="guitar" />
+				<ref name="cymbal" />
+				<ref name="harmonica" />
+			</lsit>
+		</property>
+	</bean> -->
+	<!--<end id="hank_bean" /> -->
+
+	<!--<start id="hank_bean" /> 装配Set\Array-->
+	<!-- <bean id="hank1" class="info.zoio.tec.java.springinaction.springidol.OneManBand" >
+		<property name="instruments">
+			<set>
+				<ref name="guitar" />
+				<ref name="cymbal" />
+				<ref name="harmonica" />
+			</set>
+		</property>
+	</bean> -->
+	<!--<end id="hank_bean" /> -->
+	<!--<start id="hank_bean" /> 装配Map-->
+	<!-- <bean id="hank2" class="info.zoio.tec.java.springinaction.springidol.OneManBand" >
+		<property name="instruments">
+			<map>
+				<entry key="GUITAR" value-ref="guitar" />
+				<entry key="CYMBAL" value-ref="cymbal" />
+				<entry key="HARMONICA" value-ref="harmonica" />
+			</map>
+		</property>
+	</bean> -->
+	<!--<end id="hank_bean" /> -->
+
+	<!--<end id="hank_bean" /> -->
+	<!--<start id="hank_bean" /> 装配Properties集合-->
+	<!-- <bean id="hank2" class="info.zoio.tec.java.springinaction.springidol.OneManBand" >
+		<property name="instruments">
+			<props>
+				<prop key="GUITAR">guitar</prop>
+				<prop key="CYMBAL">cymbal</prop>
+				<prop key="HARMONICA">harmonica</prop>
+			</props>
+		</property>
+	</bean> -->
+	<!--<end id="hank_bean" /> -->
+
+	<!--<start id="carl_bean" /> 使用Spring EL引用Bean\Properties和方法-->
+	<bean id="carl" class="info.zoio.tec.java.springinaction.springidol.Instrumentalist" >
+		<property name="song" value="#{kenny.song}" />
+		<property name="instrument" ref="piano" />
+	</bean>
+	<!--<end id="carl_bean" /> -->
+
 </beans>
