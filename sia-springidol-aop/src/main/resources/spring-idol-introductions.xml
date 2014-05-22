@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="eddie"
+		class="info.zoio.tec.java.springinaction.springidol.aop.Instrumentalist">
+		<property name="instrument">
+			<bean class="info.zoio.tec.java.springinaction.springidol.aop.Guitar" />
+		</property>
+	</bean>
+
+	<bean id="audience"
+		class="info.zoio.tec.java.springinaction.springidol.aop.Audience" />
+
+	<aop:config>
+		<aop:aspect ref="audience">
+			<aop:pointcut id="performance"
+				expression="execution(* info.zoio.tec.java.springinaction.springidol.aop.Performer.perform(..))" />
+			<aop:before pointcut-ref="performance" method="takeSeats()" />
+			<aop:before pointcut-ref="performance" method="turnOffCellPhones" />
+			<aop:after-returning pointcut-ref="performance" method="applaud" />
+			<aop:after-throwing pointcut-ref="performance" method="demandRefund" />
+		</aop:aspect>
+
+		<!-- 通过切面引入新功能：类型匹配 Performer的Bean实现Contestant接口-->
+		<aop:aspect>
+			 <aop:declare-parents
+				types-matching="info.zoio.tec.java.springinaction.springidol.aop.Performer+"
+				implement-interface="info.zoio.tec.java.springinaction.springidol.aop.Contestant"
+				default-impl="info.zoio.tec.java.springinaction.springidol.aop.GraciousContestant" /><!-- 此处使用了全限定类名，也可以使用 下面的delegate_ref来标识-->
+
+		</aop:aspect>
+
+		<!-- 注意：id="contestantDelegate"debean务必放在<aop:config>元素的前面，不然报错
+		 <bean id="contestantDelegate"
+				class="info.zoio.tec.java.springinaction.springidol.aop.GraciousContestant" />
+		<aop:aspect>
+			<aop:declare-parents
+				types-matching="info.zoio.tec.java.springinaction.springidol.aop.Performer+"
+				implement-interface="info.zoio.tec.java.springinaction.springidol.aop.Contestant"
+				delegate-ref="contestantDelegate" />
+		</aop:aspect>
+		-->
+
+
+	</aop:config>
+
+</beans>
